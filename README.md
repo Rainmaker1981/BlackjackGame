@@ -1,6 +1,6 @@
 # Mark Meyer
 # Cyber 150
-# Custom Blackjack Deck Game
+# Custom Blackjack Game
 
 ## How to Run
 
