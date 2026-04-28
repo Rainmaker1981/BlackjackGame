@@ -9,7 +9,6 @@
  * file that can be pasted into AI with the AI instructions file.
  */
 
-import java.io.File;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
@@ -35,12 +34,6 @@ public class DeckRequestBuilder {
             System.out.print("Add any AI prompt to customize this deck: ");
             String prompt = scanner.nextLine();
 
-            File requestFolder = new File("deck_requests");
-
-            if (!requestFolder.exists()) {
-                requestFolder.mkdir();
-            }
-
             PrintWriter output = new PrintWriter("deck_requests/deck_request.csv");
 
             output.println("field,value");
@@ -52,7 +45,7 @@ public class DeckRequestBuilder {
 
             output.close();
 
-            createAIInstructionsFile();
+            createInstructionsFile();
 
             System.out.println("\nDeck request created:");
             System.out.println("deck_requests/deck_request.csv");
@@ -65,14 +58,14 @@ public class DeckRequestBuilder {
         }
     }
 
-    private static void createAIInstructionsFile() {
+    private static void createInstructionsFile() {
         try {
             PrintWriter output = new PrintWriter("deck_requests/AI_INSTRUCTIONS_TO_PASTE_WITH_DECK_REQUEST.txt");
 
             output.println("Use the uploaded deck_request.csv to generate a complete playable Blackjack deck CSV.");
             output.println();
-            output.println("You are generating the FINAL deck file that my Java Blackjack game will load.");
-            output.println("Output only CSV data. Do not add markdown or explanation.");
+            output.println("AI generate a card deck file that will be used in my Java Blackjack game.");
+            output.println("Output only the final CSV FILE. Do not add markdown or explanation.");
             output.println();
             output.println("Required final CSV columns:");
             output.println("rank,suit,displayName,value,wild,drawQuote,winQuote,loseQuote,role,color,imagePrompt");
@@ -87,21 +80,19 @@ public class DeckRequestBuilder {
             output.println("7. imagePrompt should describe a future playing-card image concept, not a URL.");
             output.println("8. CSV values containing commas must be wrapped in quotes.");
             output.println("9. Blackjack values: A=11, K=10, Q=10, J=10, number cards equal their number.");
+            output.println("10. Keep the deck fun, funny, and playful.");
+            output.println("11. Generate humorous drawQuote, winQuote, and loseQuote lines for every card.");
+            output.println("12. Try to assign female names to Queen cards first when possible.");
+            output.println("13. Try to assign male names to King or Jack cards when possible.");
+            output.println("14. Do not force gender if the name is unclear.");
+            output.println("15. Assign quotes and names that will match the associated number, like Seventh inning stretch = 7 card or Double = 2 card. ");
             output.println();
-            output.println("Style Rules:");
-            output.println("- Keep the deck fun, funny, and playful.");
-            output.println("- Generate humorous drawQuote, winQuote, and loseQuote lines for every card.");
-            output.println("- Try to assign female names to Queen cards first when possible.");
-            output.println("- Try to assign male names to King or Jack cards when possible.");
-            output.println("- Do not force gender if the name is unclear.");
-            output.println("- Assign quotes and names that will match the associated number, like Seventh inning stretch = 7 card or Double = 2 card. ");
-            output.println();
-            output.println("Output only the final CSV file for download.");
 
             output.close();
+        }
+        catch (java.io.FileNotFoundException e) {
+            System.out.println("Error creating deck request.");
+        }
 
-        } catch (Exception e) {
-            System.out.println("Error creating AI instructions file: " + e.getMessage());
         }
     }
-}
