@@ -1,7 +1,7 @@
 Use the uploaded deck_request.csv to generate a complete playable Blackjack deck CSV.
 
-You are generating the FINAL deck file that my Java Blackjack game will load.
-Output only CSV data. Do not add markdown or explanation.
+AI generate a card deck file that will be used in my Java Blackjack game.
+Output only the final CSV FILE. Do not add markdown or explanation.
 
 Required final CSV columns:
 rank,suit,displayName,value,wild,drawQuote,winQuote,loseQuote,role,color,imagePrompt
@@ -16,13 +16,10 @@ Rules:
 7. imagePrompt should describe a future playing-card image concept, not a URL.
 8. CSV values containing commas must be wrapped in quotes.
 9. Blackjack values: A=11, K=10, Q=10, J=10, number cards equal their number.
+10. Keep the deck fun, funny, and playful.
+11. Generate humorous drawQuote, winQuote, and loseQuote lines for every card.
+12. Try to assign female names to Queen cards first when possible.
+13. Try to assign male names to King or Jack cards when possible.
+14. Do not force gender if the name is unclear.
+15. Assign quotes and names that will match the associated number, like Seventh inning stretch = 7 card or Double = 2 card. 
 
-Style Rules:
-- Keep the deck fun, funny, and playful.
-- Generate humorous drawQuote, winQuote, and loseQuote lines for every card.
-- Try to assign female names to Queen cards first when possible.
-- Try to assign male names to King or Jack cards when possible.
-- Do not force gender if the name is unclear.
-- Keep quotes school appropriate.
-
-Output only the final CSV data.
