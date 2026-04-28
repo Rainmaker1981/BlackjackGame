@@ -1,13 +1,3 @@
-/*
- * Name: Mark Meyer
- * Class: CYBR 150
- * Project: Custom Blackjack Deck Game
- * File: Player.java
- *
- * Purpose:
- * This class represents a player or dealer in the Blackjack game.
- */
-
 import java.util.ArrayList;
 
 public class Player {

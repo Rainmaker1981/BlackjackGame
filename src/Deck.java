@@ -1,14 +1,3 @@
-/*
- * Name: Mark Meyer
- * Class: CYBR 150
- * Project: Custom Blackjack Deck Game
- * File: Deck.java
- *
- * Purpose:
- * This class loads a custom deck from a CSV file, stores the cards,
- * shuffles them, and allows the game to draw cards.
- */
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;

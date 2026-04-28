@@ -1,13 +1,3 @@
-/*
- * Name: Mark Meyer
- * Class: CYBR 150
- * Project: Custom Blackjack Deck Game
- * File: BlackjackGame.java
- *
- * Purpose:
- * This class contains the main menu and the main Blackjack game logic.
- */
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;

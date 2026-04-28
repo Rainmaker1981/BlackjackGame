@@ -1,14 +1,3 @@
-/*
- * Name: Mark Meyer
- * Class: CYBR 150
- * Project: Custom Blackjack Deck Game
- * File: DeckRequestBuilder.java
- *
- * Purpose:
- * This class asks the user a few simple questions and creates a deck_request.csv
- * file that can be pasted into AI with the AI instructions file.
- */
-
 import java.io.PrintWriter;
 import java.util.Scanner;
 

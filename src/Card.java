@@ -1,13 +1,3 @@
-/*
- * Name: Mark Meyer
- * Class: CYBR 150
- * Project: Custom Blackjack Deck Game
- * File: Card.java
- *
- * Purpose:
- * This class represents one playing card in the Blackjack game.
- */
-
 public class Card {
     private String rank;
     private String suit;
