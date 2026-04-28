@@ -1,3 +1,7 @@
+# Mark Meyer
+# Cyber 150
+# CUSTOM Blackjack
+
 ## How to Run
 
 2. Make sure the `src` folder contains:
@@ -5,15 +9,8 @@
    - Deck.java
    - Player.java
    - DeckRequestBuilder.java
-3. Make sure the `decks` folder is in the main project folder.
-
-## Program Features
-
-- Uses multiple Java classes to show Object-Oriented Programming.
-- Loads playable decks from CSV files stored in the `decks` folder.
-- Main menu automatically updates when new CSV files are added to `decks`.
-- Includes a custom deck request builder that creates a simple CSV file for AI deck generation.
-- Each card can have a draw quote, win quote, lose quote, color, role, and image prompt.
+   - driver.java
+3. Make sure the `decks` and 'decks_requests' folder is in the main project folder.
 
 ## Menu
 
