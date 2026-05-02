@@ -7,7 +7,7 @@
 2. Make sure the `src` folder contains:
    - Card.java
    - Deck.java
-   - Player.java
+   - BlackjackHand.java
    - DeckRequestBuilder.java
    - driver.java
 3. Make sure the `decks` and 'decks_requests' folder is in the main project folder.

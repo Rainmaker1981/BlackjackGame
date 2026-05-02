@@ -5,12 +5,14 @@ import java.util.Scanner;
 public class driver {
 
     public static void main(String[] args) {
+
         Scanner scanner = new Scanner(System.in);
         boolean keepRunning = true;
 
-        System.out.println("WELCOME TO CUSTOM BLACKJACK");
+        System.out.println("WELCOME TO CUSTOM AI BLACKJACK");
 
-        while (keepRunning) {
+        while (keepRunning == true) {
+
             ArrayList<File> deckFiles = getDeckFiles();
 
             showMainMenu(deckFiles);
@@ -20,7 +22,7 @@ public class driver {
 
             if (input.equals("0")) {
                 keepRunning = false;
-                System.out.println("Thanks for playing!");
+                System.out.println("\nThanks for playing!");
             } else if (input.equals("1")) {
                 DeckRequestBuilder.buildDeckRequest(scanner);
             } else {
@@ -31,11 +33,11 @@ public class driver {
                         File chosenDeck = deckFiles.get(choice - 2);
                         playDeckLoop(scanner, chosenDeck);
                     } else {
-                        System.out.println("Invalid menu choice.");
+                        System.out.println("\nInvalid menu choice.");
                     }
 
                 } catch (Exception e) {
-                    System.out.println("Please enter a valid number.");
+                    System.out.println("\nPlease enter a valid number.");
                 }
             }
         }
@@ -44,6 +46,7 @@ public class driver {
     }
 
     public static void showMainMenu(ArrayList<File> deckFiles) {
+
         System.out.println("\nMAIN MENU");
         System.out.println("1) Build Deck Request");
 
@@ -55,6 +58,7 @@ public class driver {
     }
 
     public static ArrayList<File> getDeckFiles() {
+
         ArrayList<File> deckFiles = new ArrayList<File>();
 
         File deckFolder = new File("decks");
@@ -77,19 +81,25 @@ public class driver {
     }
 
     public static void playDeckLoop(Scanner scanner, File deckFile) {
+
         boolean keepPlayingSameDeck = true;
 
-        while (keepPlayingSameDeck) {
-            Deck deck = new Deck(deckFile.getPath());
+        while (keepPlayingSameDeck == true) {
+
+            BlackjackDeck deck = new BlackjackDeck(deckFile.getPath());
 
             if (deck.cardsLeft() < 10) {
-                System.out.println("The deck did not load correctly or does not have enough cards.");
+                System.out.println("\nThe deck did not load correctly or does not have enough cards.");
+                System.out.println("Check your CSV file in the decks folder.");
                 return;
             }
 
+            System.out.println("\nLoaded deck: " + deckFile.getName());
+            deck.showDeckPreview();
+
             playOneHand(scanner, deck);
 
-            System.out.print("\nPlay again with same deck? (y/n): ");
+            System.out.print("\nPlay again with the same deck? (y/n): ");
             String answer = scanner.nextLine();
 
             if (!answer.equalsIgnoreCase("y")) {
@@ -98,9 +108,10 @@ public class driver {
         }
     }
 
-    public static void playOneHand(Scanner scanner, Deck deck) {
-        Player player = new Player("Player");
-        Player dealer = new Player("Dealer");
+    public static void playOneHand(Scanner scanner, BlackjackDeck deck) {
+
+        BlackjackHand player = new BlackjackHand("Player");
+        BlackjackHand dealer = new BlackjackHand("Dealer");
 
         System.out.println("\nStarting a new hand...");
 
@@ -111,12 +122,14 @@ public class driver {
 
         System.out.println();
         player.showHand();
+
         System.out.println();
         dealer.showDealerFirstCard();
 
         boolean playerTurn = true;
 
-        while (playerTurn && !player.isBusted()) {
+        while (playerTurn == true && player.isBusted() == false) {
+
             System.out.print("\nHit or stay? (h/s): ");
             String choice = scanner.nextLine();
 
@@ -149,21 +162,27 @@ public class driver {
         decideWinner(player, dealer);
     }
 
-    public static void dealCard(Player player, Deck deck) {
-        Card card = deck.drawCard();
+    public static void dealCard(BlackjackHand hand, BlackjackDeck deck) {
 
-        if (card != null) {
-            player.addCard(card);
-            System.out.println(player.getName() + " drew: " + card);
-            System.out.println("Quote: " + card.getDrawQuote());
+        String cardName = deck.drawCardName();
+        int cardValue = deck.drawCardValue();
+        boolean wildCard = deck.drawWildCard();
+        String drawQuote = deck.drawDrawQuote();
+        String winQuote = deck.drawWinQuote();
+        String loseQuote = deck.drawLoseQuote();
 
-            if (card.isWild()) {
-                System.out.println("Wild card bonus: This card is special in this custom deck!");
-            }
+        hand.addCard(cardName, cardValue, wildCard, drawQuote, winQuote, loseQuote);
+
+        System.out.println(hand.getName() + " drew: " + cardName);
+        System.out.println("Quote: " + drawQuote);
+
+        if (wildCard == true) {
+            System.out.println("Wild card bonus: This card is special in this custom deck!");
         }
     }
 
-    public static void decideWinner(Player player, Player dealer) {
+    public static void decideWinner(BlackjackHand player, BlackjackHand dealer) {
+
         int playerTotal = player.getHandValue();
         int dealerTotal = dealer.getHandValue();
 
@@ -185,15 +204,12 @@ public class driver {
         }
     }
 
-    public static void showEndQuote(Player player, boolean won) {
-        Card quoteCard = player.getBestQuoteCard();
+    public static void showEndQuote(BlackjackHand player, boolean won) {
 
-        if (quoteCard != null) {
-            if (won) {
-                System.out.println("Win quote: " + quoteCard.getWinQuote());
-            } else {
-                System.out.println("Lose quote: " + quoteCard.getLoseQuote());
-            }
+        if (won == true) {
+            System.out.println("Win quote: " + player.getBestWinQuote());
+        } else {
+            System.out.println("Lose quote: " + player.getBestLoseQuote());
         }
     }
 }
