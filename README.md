@@ -10,6 +10,10 @@ This Blackjack game uses a custom CSV card deck. Instead of a normal deck in the
 
 I started this project with just building a game but found that to be easy so how could I make it better. By answering a few questions you get to create content that is tailored to an individual.
 
+## Instructions for making a deck
+
+Once you complete the `deck_request.txt` Upload it into a AI program along with “Convert my uploaded .txt into a downloadable CSV file” for the prompt.  This should output a CSV file in the correct format which you will place into the decks folder. Just hit return to update the menu and then select your newly created deck. 
+
 ## Main Features
 
 - Plays Blackjack game.
@@ -98,107 +102,6 @@ The driver file handles:
 - Deciding the winner
 - Displaying end-of-hand quotes
 
-## How to Run the Program
-
-### Option 1: Run in IntelliJ IDEA
-
-1. Open IntelliJ IDEA.
-2. Open the `BlackjackGame` project folder.
-3. Make sure these folders exist in the main project folder:
-   - `src`
-   - `decks`
-   - `deck_requests`
-4. Make sure at least one playable CSV deck is inside the `decks` folder.
-5. Open `driver.java`.
-6. Run the program.
-7. Use the menu in the console.
-
-### Option 2: Run from the Command Line
-
-From the main project folder, compile the Java files:
-
-```bash
-javac src/*.java
-```
-
-Then run the program:
-
-```bash
-java -cp src driver
-```
-
-## Main Menu
-
-When the program starts, it shows a menu similar to this:
-
-```text
-WELCOME TO CUSTOM AI BLACKJACK
-
-MAIN MENU
-1) Build Deck Request
-2) Play with example_deck.csv
-0) Exit
-```
-
-The exact play options depend on what CSV files are inside the `decks` folder.
-
-## CSV Deck Format
-
-The playable deck files should be saved as `.csv` files inside the `decks` folder.
-
-The required CSV header is:
-
-```text
-rank,suit,displayName,value,wild,drawQuote,winQuote,loseQuote,role,color,imagePrompt
-```
-
-The current Java program reads and uses these fields:
-
-- `rank`
-- `suit`
-- `displayName`
-- `value`
-- `wild`
-- `drawQuote`
-- `winQuote`
-- `loseQuote`
-
-The `role`, `color`, and `imagePrompt` fields are included in the CSV format for future deck development, but the current game logic does not use them during play.
-
-## Important CSV Note
-
-The program currently uses a simple `split(",")` method to read CSV rows. Because of that, commas should not be used inside quote fields. The deck request builder also warns about this so the generated CSV will work correctly with the program.
-
-## Example CSV Row
-
-```text
-Ace,Spades,Ace of Spades,11,false,The big dog showed up,That ace saved the day,You wasted an ace,High card,Black,Classic ace of spades playing card
-```
-
-## Object-Oriented Programming Concepts Used
-
-This project demonstrates several Java and OOP concepts:
-
-- Classes and objects
-- Constructors
-- Private fields
-- Methods
-- ArrayLists
-- File reading with `File` and `Scanner`
-- File writing with `FileWriter`
-- User input with `Scanner`
-- Conditional logic
-- Loops
-- Separating game logic into different classes
-
-## What I Learned
-
-While building this project, I practiced taking a basic game idea and breaking it into separate Java files with specific jobs. The deck, hand, deck request builder, and main driver all handle different parts of the program.
-
-I also learned how useful external data files can be. By loading the card information from CSV files, the game can be changed or expanded without rewriting all the Java code. That made the project feel more flexible than a normal hard-coded Blackjack assignment.
-
-The custom AI deck idea also helped me connect programming with creativity. The game still follows Blackjack rules, but the deck content can be changed into different themes, characters, jokes, or artwork ideas.
-
 ## Future Improvements
 
 Possible future improvements include:
@@ -214,4 +117,4 @@ Possible future improvements include:
 
 ## Notes
 
-This project was created for CYBR 150 as a custom Java Blackjack game. It is meant to show basic Blackjack game logic, object-oriented programming structure, and file-based custom deck loading.
+This project was created for CYBR 150 as a custom Java Blackjack game. It is meant to show basic Blackjack game logic and object-oriented programming structure.
