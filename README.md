@@ -1,74 +1,119 @@
-# Custom Blackjack Deck Game
+# Custom AI Blackjack Deck Game
 
 **Name:** Mark Meyer  
 **Class:** CYBR 150  
-**Project:** Custom Blackjack Deck Game
+**Project:** Custom AI Blackjack Deck Game
 
 ## Project Overview
 
-This project is a Java-based Blackjack game that uses a custom card deck loaded from CSV files. Instead of only using a standard 52-card deck, this program allows the player to use themed custom decks with unique card names, suits, values, quotes, roles, colors, and image prompt information.
+This project is a Java command-line Blackjack game that uses custom CSV card decks. Instead of hard-coding a normal deck directly into the program, the game loads playable card data from the `decks` folder. This allows the game to use themed decks with custom card names, Blackjack values, wild card flags, and short quotes.
 
-The main purpose of the project is to show object-oriented programming concepts in Java while building something more interesting than a basic card game. The game separates the responsibilities into different classes so each part of the program has a clear job.
+The project also includes a deck request builder. That part of the program creates a `deck_request.txt` file that can be pasted into an AI tool to help generate a new custom Blackjack CSV deck.
+
+The goal of this project was to build a working Blackjack game while practicing Java, file handling, ArrayLists, user input, and object-oriented programming structure.
 
 ## Main Features
 
 - Plays a command-line Blackjack game.
-- Loads custom decks from CSV files.
-- Supports custom card names, suits, values, and descriptions.
-- Uses separate Java classes for cards, decks, hands, and deck request building.
-- Allows the user to create a deck request file for future custom decks.
-- Stores playable decks in the `decks` folder.
-- Stores deck request files in the `deck_requests` folder.
+- Automatically finds CSV deck files in the `decks` folder.
+- Lets the user select which custom deck to play with.
+- Loads card names, values, wild card status, and quotes from the CSV file.
+- Shuffles the deck before each hand.
+- Deals cards to the player and dealer.
+- Allows the player to hit or stay.
+- Dealer hits until reaching at least 17.
+- Handles Ace values by reducing an Ace from 11 to 1 when needed.
+- Displays draw quotes, win quotes, and lose quotes from the custom deck.
+- Includes a deck request builder for creating future AI-generated decks.
 
 ## Project Structure
 
 ```text
 BlackjackGame/
 ├── src/
-│   ├── Card.java
-│   ├── Deck.java
+│   ├── BlackjackDeck.java
 │   ├── BlackjackHand.java
 │   ├── DeckRequestBuilder.java
 │   └── driver.java
 ├── decks/
-│   └── custom deck CSV files
+│   └── custom playable CSV deck files
 ├── deck_requests/
-│   └── deck request CSV files
+│   └── deck_request.txt
 └── README.md
 ```
 
-## File Descriptions
+## Java File Descriptions
 
-### `Card.java`
+### `BlackjackDeck.java`
 
-Represents one card in the game. Each card stores information such as rank, suit, display name, value, whether it is wild, quotes, role, color, and image prompt text.
+This class handles the custom deck. It loads the CSV file, stores the card information in ArrayLists, shuffles the deck, and provides methods for drawing card names, values, wild card flags, and quotes.
 
-### `Deck.java`
+The deck uses separate ArrayLists for:
 
-Handles the deck of cards. This class is responsible for loading cards from a CSV file, storing them, shuffling them, and dealing cards during the game.
+- Card names
+- Card values
+- Wild card status
+- Draw quotes
+- Win quotes
+- Lose quotes
+
+It also includes a `showDeckPreview()` method that displays the first few cards and shows how many cards are loaded.
 
 ### `BlackjackHand.java`
 
-Represents a player's or dealer's hand. It keeps track of the cards in the hand and calculates the Blackjack value.
+This class represents either the player's hand or the dealer's hand. It stores the cards dealt to that hand and calculates the current Blackjack total.
+
+Important jobs handled by this class include:
+
+- Adding a card to a hand
+- Calculating the hand value
+- Adjusting Aces from 11 to 1 if the hand would bust
+- Checking whether the hand busted
+- Showing the full hand
+- Showing only the dealer's first card
+- Returning win, lose, and draw quotes
 
 ### `DeckRequestBuilder.java`
 
-Allows the user to build a deck request file. This is useful when planning a new custom deck before turning it into a playable deck.
+This class creates a deck request text file. It asks the user for a theme, colors, websites for research, and names or characters to include.
+
+It then writes a file to:
+
+```text
+deck_requests/deck_request.txt
+```
+
+That file contains instructions for generating a 52-card custom Blackjack CSV deck.
 
 ### `driver.java`
 
-This is the main program file. It displays the menu, gets user input, starts the game, and connects the other classes together.
+This is the main program file. It contains the `main()` method and controls the overall game flow.
+
+The driver file handles:
+
+- Displaying the main menu
+- Finding CSV deck files in the `decks` folder
+- Letting the user choose a deck
+- Starting a new hand
+- Handling hit or stay input
+- Running the dealer turn
+- Deciding the winner
+- Displaying end-of-hand quotes
 
 ## How to Run the Program
 
 ### Option 1: Run in IntelliJ IDEA
 
 1. Open IntelliJ IDEA.
-2. Open the project folder.
-3. Make sure the `src`, `decks`, and `deck_requests` folders are present.
-4. Open `driver.java`.
-5. Click the green Run button.
-6. Use the menu in the console.
+2. Open the `BlackjackGame` project folder.
+3. Make sure these folders exist in the main project folder:
+   - `src`
+   - `decks`
+   - `deck_requests`
+4. Make sure at least one playable CSV deck is inside the `decks` folder.
+5. Open `driver.java`.
+6. Run the program.
+7. Use the menu in the console.
 
 ### Option 2: Run from the Command Line
 
@@ -84,67 +129,91 @@ Then run the program:
 java -cp src driver
 ```
 
-## Menu Options
+## Main Menu
 
-When the program starts, the user can choose from the main menu:
+When the program starts, it shows a menu similar to this:
 
 ```text
-1. Build Deck Request
-2. Play with any CSV deck found in the decks folder
-0. Exit
+WELCOME TO CUSTOM AI BLACKJACK
+
+MAIN MENU
+1) Build Deck Request
+2) Play with example_deck.csv
+0) Exit
 ```
+
+The exact play options depend on what CSV files are inside the `decks` folder.
 
 ## CSV Deck Format
 
-The game expects deck files to be stored as CSV files inside the `decks` folder. Each row represents one card. The deck can include custom information such as:
+The playable deck files should be saved as `.csv` files inside the `decks` folder.
 
-- Rank
-- Suit
-- Display name
-- Blackjack value
-- Wild card status
-- Draw quote
-- Win quote
-- Lose quote
-- Role
-- Color
-- Image prompt
+The required CSV header is:
 
-This makes it possible to build themed decks instead of only using normal playing cards.
+```text
+rank,suit,displayName,value,wild,drawQuote,winQuote,loseQuote,role,color,imagePrompt
+```
+
+The current Java program reads and uses these fields:
+
+- `rank`
+- `suit`
+- `displayName`
+- `value`
+- `wild`
+- `drawQuote`
+- `winQuote`
+- `loseQuote`
+
+The `role`, `color`, and `imagePrompt` fields are included in the CSV format for future deck development, but the current game logic does not use them during play.
+
+## Important CSV Note
+
+The program currently uses a simple `split(",")` method to read CSV rows. Because of that, commas should not be used inside quote fields. The deck request builder also warns about this so the generated CSV will work correctly with the program.
+
+## Example CSV Row
+
+```text
+Ace,Spades,Ace of Spades,11,false,The big dog showed up,That ace saved the day,You wasted an ace,High card,Black,Classic ace of spades playing card
+```
 
 ## Object-Oriented Programming Concepts Used
 
-This project demonstrates several basic Java and object-oriented programming ideas:
+This project demonstrates several Java and OOP concepts:
 
 - Classes and objects
 - Constructors
 - Private fields
-- Getter methods
+- Methods
 - ArrayLists
-- File reading
-- CSV data handling
-- User input with Scanner
-- Program organization across multiple files
-- Separating responsibilities between classes
+- File reading with `File` and `Scanner`
+- File writing with `FileWriter`
+- User input with `Scanner`
+- Conditional logic
+- Loops
+- Separating game logic into different classes
 
 ## What I Learned
 
-While building this project, I practiced taking a simple game idea and organizing it into separate Java classes. I learned how a card game can be broken into smaller parts: one class for a card, one class for a deck, one class for a hand, and one main driver class to control the program.
+While building this project, I practiced taking a basic game idea and breaking it into separate Java files with specific jobs. The deck, hand, deck request builder, and main driver all handle different parts of the program.
 
-I also worked with CSV files so the game can load data instead of having every card hard-coded into the program. That makes the project more flexible and allows custom decks to be added without rewriting the whole game.
+I also learned how useful external data files can be. By loading the card information from CSV files, the game can be changed or expanded without rewriting all the Java code. That made the project feel more flexible than a normal hard-coded Blackjack assignment.
+
+The custom AI deck idea also helped me connect programming with creativity. The game still follows Blackjack rules, but the deck content can be changed into different themes, characters, jokes, or artwork ideas.
 
 ## Future Improvements
 
 Possible future improvements include:
 
-- Adding a graphical user interface.
-- Adding betting or chip tracking.
-- Adding multiple players.
-- Improving Ace handling.
-- Adding stronger input validation.
-- Adding card images based on the image prompt field.
-- Creating more custom themed decks.
+- Add a graphical user interface.
+- Add betting or chip tracking.
+- Add multiple players.
+- Improve CSV parsing so commas inside quoted text work correctly.
+- Use the `role`, `color`, and `imagePrompt` fields during gameplay or card display.
+- Add card images.
+- Add more custom themed decks.
+- Rename `driver.java` to follow normal Java class naming style, such as `Driver.java` or `BlackjackGame.java`.
 
 ## Notes
 
-This project was created for CYBR 150 as a custom Blackjack game using Java. It is meant to show both basic game logic and object-oriented programming structure.
+This project was created for CYBR 150 as a custom Java Blackjack game. It is meant to show basic Blackjack game logic, object-oriented programming structure, and file-based custom deck loading.
