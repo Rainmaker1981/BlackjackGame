@@ -6,17 +6,15 @@
 
 ## Project Overview
 
-This project is a Java command-line Blackjack game that uses custom CSV card decks. Instead of hard-coding a normal deck directly into the program, the game loads playable card data from the `decks` folder. This allows the game to use themed decks with custom card names, Blackjack values, wild card flags, and short quotes.
+This Blackjack game uses a custom CSV card deck. Instead of a normal deck in the program, the game loads playable card data from the `decks` folder. This allows the game to use themed decks with custom card names, Blackjack values, wild card flags, and short quotes. Which brings us to the AI portion the deck request builder. That part of the program creates a `deck_request.txt` file that can be pasted into an AI tool to help generate a new custom Blackjack CSV deck.
 
-The project also includes a deck request builder. That part of the program creates a `deck_request.txt` file that can be pasted into an AI tool to help generate a new custom Blackjack CSV deck.
-
-The goal of this project was to build a working Blackjack game while practicing Java, file handling, ArrayLists, user input, and object-oriented programming structure.
+I started this project with just building a game but found that to be easy so how could I make it better. By answering a few questions you get to create content that is tailored to an individual.
 
 ## Main Features
 
-- Plays a command-line Blackjack game.
+- Plays Blackjack game.
 - Automatically finds CSV deck files in the `decks` folder.
-- Lets the user select which custom deck to play with.
+- Lets the user select which custom deck to play within the menu.
 - Loads card names, values, wild card status, and quotes from the CSV file.
 - Shuffles the deck before each hand.
 - Deals cards to the player and dealer.
